@@ -66,6 +66,7 @@ class DitSeries:
     
     def __getitem__(self, key: "DitSeries") -> "DitSeries":
         """ """
+        return self.data[key]
 
     def __repr__(self) -> str:
         """ Affiche une representation de l'objet DitSeries. """
@@ -75,6 +76,17 @@ class DitSeries:
 class DitDataFrame:
     """ """
     def __init__(self, d: t.Dict[str, t.List[t.Any]]):
+
+        for k,v in d.items():
+            #print(k,v)
+            t=[0,1,2]
+            b={}
+            for k,v in d.items():
+                for y in v:
+                    for j in range(len(t)):
+                    b[j]=v[j]
+                    self.series_map=DitSeries(k,b)
+        self.length=len(self.series_map)
         """ Constructeur prenant un seul parametre
         - un dictionnaire
         - la clé du dictionnaire est une chaine de caractère
