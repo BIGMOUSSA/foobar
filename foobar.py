@@ -10,6 +10,8 @@ class DitSeries:
         - le contenu de la colonne sous forme de Dictionnaire
         - La clé du Dictionnaire est un entier
         - La valeur du Dictionnaire est de n'importe quel type"""
+        self.name=name
+        self.data=data
 
     def __mul__(self, other: int) -> "DitSeries":
         """ Implementation de l'opération de multiplication.
@@ -17,21 +19,41 @@ class DitSeries:
         - La valeur renvoyée est de type DitSeries
         - Chaque élément de la série est multiplié par l'argument
         """
-
+        for v in self.data.keys():
+            self.data[v]=self.data[v]*other
+            
+        return DitSeries(self.name, self.data)
+    #f"<DitSeries: {self.name} {self.data}>"
+    
     def __div__(self, other: int) -> "DitSeries":
         """ Implementation de l'opération de division.
         - L'argument est de type entier
         - La valeur renvoyée est de type DitSeries
         - Chaque élément de la série est divisé par l'argument
         """
-
+        if other==0 : 
+            return "cant divide with null"
+        else :    
+            for v in self.data.keys():
+                self.data[v]=self.data[v]/other
+        return f"<DitSeries: {self.name} {self.data}>"
+            
     def __sub__(self, other: int) -> "DitSeries":
+        
         """Soustraction """
+        for v in self.data.keys():
+            self.data[v]=self.data[v]-other
+            
+        return f"<DitSeries: {self.name} {self.data}>"
 
 
     def __add__(self, other: int) -> "DitSeries":
         """Addition"""
-
+        for v in self.data.keys():
+            self.data[v]=self.data[v]+other
+            
+        return f"<DitSeries: {self.name} {self.data}>"
+    
     def __gt__(self, other: int) -> "DitSeries":
         """Comparaison (supérieur) """
 
@@ -90,8 +112,8 @@ if __name__ == "__main__":
     ds3 = ds2 + 5
     print(ds3)    # <DitSeries: serie {0: 95, 1: 97, 2: 99}>
 
-    ds4 = ds3 > 95
-    print(ds4)   # <DitSeries: serie {0: False, 1: True, 2: True}>
+   # ds4 = ds3 > 95
+   # print(ds4)   # <DitSeries: serie {0: False, 1: True, 2: True}>
 
     df = DitDataFrame(
         {
