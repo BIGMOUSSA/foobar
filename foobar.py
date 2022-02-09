@@ -36,7 +36,7 @@ class DitSeries:
         else :    
             for v in self.data.keys():
                 self.data[v]=self.data[v]/other
-        return f"<DitSeries: {self.name} {self.data}>"
+        return DitSeries(self.name, self.data)
             
     def __sub__(self, other: int) -> "DitSeries":
         
@@ -44,7 +44,7 @@ class DitSeries:
         for v in self.data.keys():
             self.data[v]=self.data[v]-other
             
-        return f"<DitSeries: {self.name} {self.data}>"
+        return DitSeries(self.name, self.data)
 
 
     def __add__(self, other: int) -> "DitSeries":
@@ -52,11 +52,18 @@ class DitSeries:
         for v in self.data.keys():
             self.data[v]=self.data[v]+other
             
-        return f"<DitSeries: {self.name} {self.data}>"
+        return DitSeries(self.name, self.data)
     
     def __gt__(self, other: int) -> "DitSeries":
         """Comparaison (supérieur) """
-
+        res={}
+        for v in self.data.keys():
+            if self.data[v]>other:
+                res[v]=True
+            else :
+                res[v]=False
+        return DitSeries(self.name, res)
+    
     def __getitem__(self, key: "DitSeries") -> "DitSeries":
         """ """
 
@@ -112,8 +119,8 @@ if __name__ == "__main__":
     ds3 = ds2 + 5
     print(ds3)    # <DitSeries: serie {0: 95, 1: 97, 2: 99}>
 
-   # ds4 = ds3 > 95
-   # print(ds4)   # <DitSeries: serie {0: False, 1: True, 2: True}>
+    ds4 = ds3 > 95
+    print(ds4)   # <DitSeries: serie {0: False, 1: True, 2: True}>
 
     df = DitDataFrame(
         {
